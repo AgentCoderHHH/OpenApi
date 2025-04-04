@@ -1,0 +1,25 @@
+{
+  "name": "claude-test",
+  "version": "1.0.0",
+  "description": "Claude Desktop integration test",
+  "main": "dist/test.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && node dist/test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.28",
+    "fs-extra": "^11.2.0",
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "@types/ws": "^8.18.1",
+    "dotenv": "^16.4.7",
+    "openai": "^4.91.1",
+    "ws": "^8.18.1"
+  }
+}
