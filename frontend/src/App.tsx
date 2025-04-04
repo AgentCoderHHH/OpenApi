@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './App.css';
 
 interface Agent {
@@ -22,11 +23,27 @@ interface ExecutionResult {
   };
 }
 
+interface AgentResponse {
+  success: boolean;
+  output?: string;
+  metrics: {
+    duration: number;
+    researchIterations: number;
+    totalTokens: number;
+    processingTime: number;
+    reasoningEffort: number;
+    model: string;
+  };
+}
+
 function App() {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [results, setResults] = useState<ExecutionResult[]>([]);
   const [selectedAgent, setSelectedAgent] = useState<string>('');
   const [input, setInput] = useState<string>('');
+  const [response, setResponse] = useState<AgentResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleAddAgent = () => {
     const newAgent: Agent = {
@@ -40,21 +57,54 @@ function App() {
 
   const handleExecute = async () => {
     try {
-      const response = await fetch('http://localhost:3001/execute', {
-        method: 'POST',
+      const result = await axios.post<AgentResponse>('http://localhost:3001/execute', {
+        agentId: selectedAgent,
+        input
+      });
+      setResponse(result.data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setResponse(null);
+
+    try {
+      const result = await axios.post<AgentResponse>('http://localhost:3001/execute', {
+        input
+      }, {
+        timeout: 30000,
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          agentId: selectedAgent,
-          input: input
-        }),
+        }
       });
-      const result = await response.json();
-      setResults([...results, result]);
-    } catch (error) {
-      console.error('Execution failed:', error);
+      setResponse(result.data);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        if (err.code === 'ECONNABORTED') {
+          setError('Request timed out. Please try again.');
+        } else if (err.response) {
+          setError(`Server error: ${err.response.status} - ${err.response.data.error || 'Unknown error'}`);
+        } else if (err.request) {
+          setError('Network error: Could not connect to the server. Please make sure the backend is running.');
+        } else {
+          setError(`Error: ${err.message}`);
+        }
+      } else {
+        setError('An unexpected error occurred');
+      }
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const formatOutput = (output: string | undefined): string => {
+    if (!output) return '';
+    return output.replace(/\n/g, '<br/>');
   };
 
   return (
@@ -126,6 +176,52 @@ function App() {
                 </div>
               ))}
             </div>
+          </div>
+          <div className="response-section">
+            <h2>Response</h2>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="input">Enter your research topic:</label>
+                <textarea
+                  id="input"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  rows={4}
+                  placeholder="Type your research topic here..."
+                  disabled={loading}
+                />
+              </div>
+              <button type="submit" disabled={loading || !input.trim()}>
+                {loading ? 'Researching...' : 'Research Topic'}
+              </button>
+            </form>
+
+            {error && (
+              <div className="error">
+                <h3>Error</h3>
+                <p>{error}</p>
+              </div>
+            )}
+
+            {response && (
+              <div className="response">
+                <h3>Research Results</h3>
+                {response.output ? (
+                  <div className="output" dangerouslySetInnerHTML={{ __html: formatOutput(response.output) }} />
+                ) : (
+                  <p>No output available</p>
+                )}
+                <div className="metrics">
+                  <h4>Research Metrics</h4>
+                  <p>Duration: {response.metrics.duration.toFixed(2)}ms</p>
+                  <p>Research Iterations: {response.metrics.researchIterations}</p>
+                  <p>Total Tokens: {response.metrics.totalTokens}</p>
+                  <p>Processing Time: {response.metrics.processingTime}ms</p>
+                  <p>Reasoning Effort: {(response.metrics.reasoningEffort * 100).toFixed(0)}%</p>
+                  <p>Model: {response.metrics.model}</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </main>
