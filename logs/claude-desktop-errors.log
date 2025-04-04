@@ -1,0 +1,209 @@
+{
+  "timestamp": "2025-04-04T18:17:36.309Z",
+  "errorCode": "EMPTY_CONTENT",
+  "message": "Empty content provided for analysis"
+}
+---
+{
+  "timestamp": "2025-04-04T18:17:36.312Z",
+  "errorCode": "ANALYSIS_ERROR",
+  "message": "Content cannot be empty",
+  "details": {
+    "name": "Error",
+    "message": "Content cannot be empty"
+  },
+  "stack": "Error: Content cannot be empty\n    at ClaudeDesktop.analyze (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:103:23)\n    at test (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:9:22)\n    at Object.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:30:1)\n    at Module._compile (node:internal/modules/cjs/loader:1554:14)\n    at Object..js (node:internal/modules/cjs/loader:1706:10)\n    at Module.load (node:internal/modules/cjs/loader:1289:32)\n    at Function._load (node:internal/modules/cjs/loader:1108:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:19:58.330Z",
+  "errorCode": "EMPTY_CONTENT",
+  "message": "Content cannot be empty",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Content cannot be empty",
+    "code": "EMPTY_CONTENT"
+  },
+  "stack": "ClaudeError: Content cannot be empty\n    at ClaudeDesktop.analyze (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:117:23)\n    at test (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:9:22)\n    at Object.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:37:1)\n    at Module._compile (node:internal/modules/cjs/loader:1554:14)\n    at Object..js (node:internal/modules/cjs/loader:1706:10)\n    at Module.load (node:internal/modules/cjs/loader:1289:32)\n    at Function._load (node:internal/modules/cjs/loader:1108:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:23:24.438Z",
+  "errorCode": "EMPTY_CONTENT",
+  "message": "Content cannot be empty",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Content cannot be empty",
+    "code": "EMPTY_CONTENT"
+  },
+  "stack": "ClaudeError: Content cannot be empty\n    at ClaudeDesktop.analyze (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:203:23)\n    at test (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:10:26)\n    at Object.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:41:1)\n    at Module._compile (node:internal/modules/cjs/loader:1554:14)\n    at Object..js (node:internal/modules/cjs/loader:1706:10)\n    at Module.load (node:internal/modules/cjs/loader:1289:32)\n    at Function._load (node:internal/modules/cjs/loader:1108:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:23:24.450Z",
+  "errorCode": "IPC_ERROR",
+  "message": "Failed to connect to Claude Desktop IPC",
+  "details": {
+    "name": "Error",
+    "message": "connect ECONNREFUSED 127.0.0.1:51234",
+    "code": "ECONNREFUSED"
+  },
+  "stack": "Error: connect ECONNREFUSED 127.0.0.1:51234\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1634:16)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:23:24.452Z",
+  "errorCode": "IPC_ERROR",
+  "message": "Failed to connect to Claude Desktop IPC",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Failed to connect to Claude Desktop IPC",
+    "code": "IPC_ERROR"
+  },
+  "stack": "ClaudeError: Failed to connect to Claude Desktop IPC\n    at Socket.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:93:24)\n    at Socket.emit (node:events:518:28)\n    at emitErrorNT (node:internal/streams/destroy:170:8)\n    at emitErrorCloseNT (node:internal/streams/destroy:129:3)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:23:24.647Z",
+  "errorCode": "IPC_ERROR",
+  "message": "Failed to connect to Claude Desktop IPC",
+  "details": {
+    "name": "Error",
+    "message": "connect ECONNREFUSED 127.0.0.1:51234",
+    "code": "ECONNREFUSED"
+  },
+  "stack": "Error: connect ECONNREFUSED 127.0.0.1:51234\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1634:16)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:23:24.649Z",
+  "errorCode": "IPC_ERROR",
+  "message": "Failed to connect to Claude Desktop IPC",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Failed to connect to Claude Desktop IPC",
+    "code": "IPC_ERROR"
+  },
+  "stack": "ClaudeError: Failed to connect to Claude Desktop IPC\n    at Socket.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:93:24)\n    at Socket.emit (node:events:518:28)\n    at emitErrorNT (node:internal/streams/destroy:170:8)\n    at emitErrorCloseNT (node:internal/streams/destroy:129:3)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:26:01.618Z",
+  "errorCode": "EMPTY_CONTENT",
+  "message": "Content cannot be empty",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Content cannot be empty",
+    "code": "EMPTY_CONTENT"
+  },
+  "stack": "ClaudeError: Content cannot be empty\n    at ClaudeDesktop.analyze (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:239:23)\n    at test (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:10:26)\n    at Object.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:47:1)\n    at Module._compile (node:internal/modules/cjs/loader:1554:14)\n    at Object..js (node:internal/modules/cjs/loader:1706:10)\n    at Module.load (node:internal/modules/cjs/loader:1289:32)\n    at Function._load (node:internal/modules/cjs/loader:1108:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:26:01.847Z",
+  "errorCode": "IPC_ERROR",
+  "message": "Failed to connect to Claude Desktop IPC",
+  "details": {
+    "name": "Error",
+    "message": "connect ECONNREFUSED 127.0.0.1:51234",
+    "code": "ECONNREFUSED"
+  },
+  "stack": "Error: connect ECONNREFUSED 127.0.0.1:51234\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1634:16)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:26:01.850Z",
+  "errorCode": "IPC_ERROR",
+  "message": "Failed to connect to Claude Desktop IPC",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Failed to connect to Claude Desktop IPC",
+    "code": "IPC_ERROR"
+  },
+  "stack": "ClaudeError: Failed to connect to Claude Desktop IPC\n    at Socket.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:109:28)\n    at Socket.emit (node:events:518:28)\n    at emitErrorNT (node:internal/streams/destroy:170:8)\n    at emitErrorCloseNT (node:internal/streams/destroy:129:3)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:30:43.257Z",
+  "errorCode": "EMPTY_CONTENT",
+  "message": "Content cannot be empty",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Content cannot be empty",
+    "code": "EMPTY_CONTENT"
+  },
+  "stack": "ClaudeError: Content cannot be empty\n    at ClaudeDesktop.analyze (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:245:23)\n    at test (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:10:26)\n    at Object.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:49:1)\n    at Module._compile (node:internal/modules/cjs/loader:1554:14)\n    at Object..js (node:internal/modules/cjs/loader:1706:10)\n    at Module.load (node:internal/modules/cjs/loader:1289:32)\n    at Function._load (node:internal/modules/cjs/loader:1108:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:30:43.538Z",
+  "errorCode": "CONNECTION_FAILED",
+  "message": "Failed to connect to Claude Desktop",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Failed to connect to Claude Desktop",
+    "code": "CONNECTION_FAILED"
+  },
+  "stack": "ClaudeError: Failed to connect to Claude Desktop\n    at C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:122:24\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:34:41.600Z",
+  "errorCode": "EMPTY_CONTENT",
+  "message": "Content cannot be empty",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Content cannot be empty",
+    "code": "EMPTY_CONTENT"
+  },
+  "stack": "ClaudeError: Content cannot be empty\n    at ClaudeDesktop.analyze (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:165:23)\n    at test (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:10:26)\n    at Object.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:41:1)\n    at Module._compile (node:internal/modules/cjs/loader:1554:14)\n    at Object..js (node:internal/modules/cjs/loader:1706:10)\n    at Module.load (node:internal/modules/cjs/loader:1289:32)\n    at Function._load (node:internal/modules/cjs/loader:1108:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:35:14.299Z",
+  "errorCode": "EMPTY_CONTENT",
+  "message": "Content cannot be empty",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Content cannot be empty",
+    "code": "EMPTY_CONTENT"
+  },
+  "stack": "ClaudeError: Content cannot be empty\n    at ClaudeDesktop.analyze (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:165:23)\n    at test (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:10:26)\n    at Object.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:41:1)\n    at Module._compile (node:internal/modules/cjs/loader:1554:14)\n    at Object..js (node:internal/modules/cjs/loader:1706:10)\n    at Module.load (node:internal/modules/cjs/loader:1289:32)\n    at Function._load (node:internal/modules/cjs/loader:1108:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:38:26.446Z",
+  "errorCode": "EMPTY_CONTENT",
+  "message": "Content cannot be empty",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Content cannot be empty",
+    "code": "EMPTY_CONTENT"
+  },
+  "stack": "ClaudeError: Content cannot be empty\n    at ClaudeDesktop.analyze (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:224:23)\n    at test (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:10:26)\n    at Object.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\test.js:42:1)\n    at Module._compile (node:internal/modules/cjs/loader:1554:14)\n    at Object..js (node:internal/modules/cjs/loader:1706:10)\n    at Module.load (node:internal/modules/cjs/loader:1289:32)\n    at Function._load (node:internal/modules/cjs/loader:1108:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:38:26.627Z",
+  "errorCode": "IPC_ERROR",
+  "message": "Failed to connect to Claude Desktop IPC",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Failed to connect to Claude Desktop IPC",
+    "code": "IPC_ERROR"
+  },
+  "stack": "ClaudeError: Failed to connect to Claude Desktop IPC\n    at Socket.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:106:28)\n    at Object.onceWrapper (node:events:633:26)\n    at Socket.emit (node:events:518:28)\n    at emitErrorNT (node:internal/streams/destroy:170:8)\n    at emitErrorCloseNT (node:internal/streams/destroy:129:3)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+}
+---
+{
+  "timestamp": "2025-04-04T18:38:26.629Z",
+  "errorCode": "IPC_ERROR",
+  "message": "Failed to connect to Claude Desktop IPC",
+  "details": {
+    "name": "ClaudeError",
+    "message": "Failed to connect to Claude Desktop IPC",
+    "code": "IPC_ERROR"
+  },
+  "stack": "ClaudeError: Failed to connect to Claude Desktop IPC\n    at Socket.<anonymous> (C:\\Users\\Administrator\\Desktop\\claude-test\\dist\\ClaudeDesktop.js:106:28)\n    at Object.onceWrapper (node:events:633:26)\n    at Socket.emit (node:events:518:28)\n    at emitErrorNT (node:internal/streams/destroy:170:8)\n    at emitErrorCloseNT (node:internal/streams/destroy:129:3)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+}
+---
