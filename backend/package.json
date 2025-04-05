@@ -17,7 +17,7 @@
     "openai": "^4.91.1",
     "playwright": "^1.51.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0",
+    "swagger-ui-express": "^5.0.1",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

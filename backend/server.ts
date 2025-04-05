@@ -1,38 +1,56 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
-import { setupSwagger } from './swagger';
-import { InternetDocumentationAgent } from './agents/internet-documentation/InternetDocumentationAgent';
-
-// Load environment variables
-dotenv.config();
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import { InternetDocumentationAgent } from './src/agents/internet-documentation/InternetDocumentationAgent';
+import { TechnicalDocumentationAgent } from './src/agents/technical-documentation/TechnicalDocumentationAgent';
+import { TechnicalDocumentationElaboratorAgent } from './src/agents/technical-documentation/TechnicalDocumentationElaboratorAgent';
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = 3001;
 
-// CORS configuration
-const corsOptions = {
-  origin: '*', // Allow all origins for testing
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-};
-
-// Middleware
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
-// Setup Swagger documentation
-setupSwagger(app);
+// Swagger setup
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Documentation Generator API',
+      version: '1.0.0',
+      description: 'API for generating technical documentation',
+    },
+  },
+  apis: ['./server.ts'],
+};
 
-// Create agent instance
-const agent = new InternetDocumentationAgent();
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Initialize agents
+const documentationAgent = new InternetDocumentationAgent();
+const technicalAgent = new TechnicalDocumentationAgent();
+const elaboratorAgent = new TechnicalDocumentationElaboratorAgent();
+
+/**
+ * @swagger
+ * /health:
+ *   get:
+ *     summary: Health check endpoint
+ *     responses:
+ *       200:
+ *         description: Server is healthy
+ */
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
 
 /**
  * @swagger
  * /execute:
  *   post:
- *     summary: Execute an agent with given input
+ *     summary: Generate documentation for a given topic
  *     requestBody:
  *       required: true
  *       content:
@@ -44,91 +62,50 @@ const agent = new InternetDocumentationAgent();
  *                 type: string
  *     responses:
  *       200:
- *         description: Successful execution
- *       500:
- *         description: Server error
+ *         description: Documentation generated successfully
  */
 app.post('/execute', async (req, res) => {
   console.log('Received execute request:', req.body);
-  
+  const { input } = req.body;
+
   try {
-    const { input } = req.body;
-    
-    if (!input) {
-      console.log('No input provided');
-      return res.status(400).json({
-        success: false,
-        error: 'Input is required',
-        output: '',
-        metrics: {
-          duration: 0,
-          researchIterations: 0,
-          totalTokens: 0,
-          processingTime: 0,
-          reasoningEffort: 0,
-          model: 'unknown'
-        }
-      });
-    }
+    // Execute documentation agent
+    console.log('Executing documentation agent with input:', input);
+    const context = { input, startTime: Date.now() };
+    const documentationResult = await documentationAgent.execute(context);
+    console.log('Documentation agent execution complete');
 
-    // Start timing
-    const startTime = process.hrtime();
+    // Execute technical documentation agent
+    console.log('Executing technical documentation agent with documentation output');
+    const technicalContext = { input: documentationResult.output, startTime: Date.now() };
+    const technicalResult = await technicalAgent.execute(technicalContext);
+    console.log('Technical documentation agent execution complete');
 
-    // Execute the documentation agent
-    console.log(`Executing agent with input: "${input}"`);
-    const result = await agent.execute(input, 0.8); // Using high reasoning effort
-    console.log('Agent execution complete');
+    // Execute elaborator agent
+    console.log('Executing elaborator agent with technical documentation output');
+    const elaboratorContext = { input: technicalResult.output, startTime: Date.now() };
+    const elaboratorResult = await elaboratorAgent.execute(elaboratorContext);
+    console.log('Elaborator agent execution complete');
 
-    // Calculate duration
-    const hrend = process.hrtime(startTime);
-    const duration = hrend[0] * 1000 + hrend[1] / 1000000;
-
-    // Prepare response
-    const response = {
-      success: result.success,
-      output: result.output || '',
+    res.json({
+      success: true,
+      documentationOutput: documentationResult.output,
+      technicalOutput: technicalResult.output,
+      elaboratorOutput: elaboratorResult.output,
       metrics: {
-        duration: duration,
-        researchIterations: result.metrics.researchIterations || 0,
-        totalTokens: result.metrics.totalTokens || 0,
-        processingTime: result.metrics.processingTime || 0,
-        reasoningEffort: result.metrics.reasoningEffort || 0,
-        model: result.metrics.model || 'unknown'
+        documentation: documentationResult.metrics,
+        technical: technicalResult.metrics,
+        elaborator: elaboratorResult.metrics
       }
-    };
-
-    console.log('Sending response');
-    res.json(response);
+    });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred',
-      output: '',
-      metrics: {
-        duration: 0,
-        researchIterations: 0,
-        totalTokens: 0,
-        processingTime: 0,
-        reasoningEffort: 0,
-        model: 'unknown'
-      }
+      error: 'Failed to generate documentation',
+      details: error instanceof Error ? error.message : 'Unknown error'
     });
   }
-});
-
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString()
-  });
-});
-
-// Simple test endpoint
-app.get('/test', (req, res) => {
-  res.json({ message: 'Backend server is running correctly' });
 });
 
 app.listen(port, () => {
