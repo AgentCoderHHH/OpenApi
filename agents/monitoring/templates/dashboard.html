@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentOpenApi Monitoring Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .metric-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .metric-label {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="my-4">AgentOpenApi Monitoring Dashboard</h1>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <div class="metric-card bg-light">
+                    <div class="metric-label">CPU Usage</div>
+                    <div class="metric-value" id="cpu-usage">0%</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="metric-card bg-light">
+                    <div class="metric-label">Memory Usage</div>
+                    <div class="metric-value" id="memory-usage">0%</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="metric-card bg-light">
+                    <div class="metric-label">Available Memory</div>
+                    <div class="metric-value" id="available-memory">0 GB</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="metric-card bg-light">
+                    <div class="metric-label">Disk Usage</div>
+                    <div class="metric-value" id="disk-usage">0%</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">CPU Usage Over Time</h5>
+                        <canvas id="cpuChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Memory Usage Over Time</h5>
+                        <canvas id="memoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize charts
+        const cpuCtx = document.getElementById('cpuChart').getContext('2d');
+        const memoryCtx = document.getElementById('memoryChart').getContext('2d');
+        
+        const cpuChart = new Chart(cpuCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'CPU Usage (%)',
+                    data: [],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+        
+        const memoryChart = new Chart(memoryCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Memory Usage (%)',
+                    data: [],
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+        
+        // Update metrics every 5 seconds
+        function updateMetrics() {
+            fetch('/api/system')
+                .then(response => response.json())
+                .then(data => {
+                    // Update metric cards
+                    document.getElementById('cpu-usage').textContent = data.cpu_percent.toFixed(1) + '%';
+                    document.getElementById('memory-usage').textContent = data.memory_percent.toFixed(1) + '%';
+                    document.getElementById('available-memory').textContent = data.memory_available_gb.toFixed(2) + ' GB';
+                    document.getElementById('disk-usage').textContent = data.disk_percent.toFixed(1) + '%';
+                    
+                    // Update charts
+                    const timestamp = new Date().toLocaleTimeString();
+                    cpuChart.data.labels.push(timestamp);
+                    cpuChart.data.datasets[0].data.push(data.cpu_percent);
+                    
+                    memoryChart.data.labels.push(timestamp);
+                    memoryChart.data.datasets[0].data.push(data.memory_percent);
+                    
+                    // Keep only last 20 data points
+                    if (cpuChart.data.labels.length > 20) {
+                        cpuChart.data.labels.shift();
+                        cpuChart.data.datasets[0].data.shift();
+                        memoryChart.data.labels.shift();
+                        memoryChart.data.datasets[0].data.shift();
+                    }
+                    
+                    cpuChart.update();
+                    memoryChart.update();
+                });
+        }
+        
+        // Update metrics immediately and then every 5 seconds
+        updateMetrics();
+        setInterval(updateMetrics, 5000);
+    </script>
+</body>
+</html> 

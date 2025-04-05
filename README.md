@@ -1,6 +1,44 @@
-# Agent Orchestration System
+# Agent OpenAI Project
 
-A system for orchestrating AI agents to perform complex tasks, with a focus on documentation generation.
+This project uses OpenAI's GPT models for various documentation and technical analysis tasks.
+
+## Setup
+
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd AgentOpenApi
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Configure environment variables
+- Copy `.env.example` to `.env`
+```bash
+cp .env.example .env
+```
+- Edit `.env` and add your OpenAI API key and other configuration
+
+4. Start the development server
+```bash
+npm run dev
+```
+
+## Environment Variables
+
+The following environment variables are required:
+
+- `OPENAI_API_KEY`: Your OpenAI API key
+- `PORT`: Server port (default: 3001)
+
+## Security Notes
+
+- Never commit the `.env` file
+- Always use `.env.example` for documenting required environment variables
+- Keep your API keys secure and rotate them regularly
 
 ## Features
 
@@ -13,40 +51,6 @@ A system for orchestrating AI agents to perform complex tasks, with a focus on d
 - Node.js (v16 or higher)
 - npm or yarn
 - OpenAI API key
-
-## Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/your-username/agent-orchestration-system.git
-cd agent-orchestration-system
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Create a `.env` file in the root directory with the following variables:
-```
-OPENAI_API_KEY=your-openai-api-key
-PORT=3001
-NODE_ENV=development
-```
-
-## Usage
-
-### Development Mode
-
-```bash
-npm run dev
-```
-
-### Building for Production
-
-```bash
-npm run build
-```
 
 ## Project Structure
 

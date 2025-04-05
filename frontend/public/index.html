@@ -7,11 +7,26 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Agent Orchestration System"
+      content="Documentation Generator"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>Agent Orchestration System</title>
+    <title>Documentation Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'dark',
+        themeVariables: {
+          'primaryColor': '#61dafb',
+          'primaryTextColor': '#e0e0e0',
+          'primaryBorderColor': '#61dafb',
+          'lineColor': '#61dafb',
+          'secondaryColor': '#2a2a2a',
+          'tertiaryColor': '#1a1a1a'
+        }
+      });
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
